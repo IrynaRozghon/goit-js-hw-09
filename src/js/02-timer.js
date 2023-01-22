@@ -35,7 +35,7 @@ const elemSeconds = document.querySelector('[data-seconds]');
 console.log(elemSeconds);
 
 //встановлюємо початкові значення 
-let timeDifference = null;
+let timeDifference = 0;
 let timerId = null;
 
 
@@ -50,24 +50,32 @@ buttonStart.addEventListener('click', onbuttonStartClick);
 //запускаю таймер
 function onbuttonStartClick() {
   timerId = setInterval(timer, 1000);
-  buttonStart.setAttribute('disabled', true); 
+  buttonStart.setAttribute('disabled', ''); 
 }
+
+//таймер
+function timer() {
+  buttonStart.setAttribute('disabled', '');
+  elemInput.setAttribute('disabled', true);
+  timeDifference -= 1000;
+
+};
 
 // перевіряю правильність дати
 function currentDifferenceDate(selectedDates) {
   const currentDate = Date.now();
 
   if (selectedDates < currentDate) {
-    buttonStart.setAttribute('disabled', true);
+    buttonStart.setAttribute('disabled', '');
     return Notiflix.Notify.failure('Please choose a date in the future');
   }
   timeDifference = selectedDates.getTime() - currentDate;
   formatDate = convertMs(timeDifference);
 
-  buttonStart.removeAttribute('disabled');
+  buttonStart.removeAttribute('disabled', '');
 };
 
-function convertMs(timeDifference) {
+function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
