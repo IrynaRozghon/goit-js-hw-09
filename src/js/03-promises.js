@@ -7,12 +7,12 @@ formEl.addEventListener('input', selectData);
 formEl.addEventListener('submit', onFormSubmit);
 
 const data = {};
-function selectData(el){
-data[el.target.name] = +el.target.value
+function selectData(event){
+data[event.target.name] = + event.target.value
 };
 
-function onFormSubmit(el){
-  el.preventDefault();
+function onFormSubmit(event){
+  event.preventDefault();
   const {delay, step, amount} = data
   
     for (let i = 1; i <= amount; i += 1){
@@ -27,7 +27,7 @@ function onFormSubmit(el){
                 Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`)
             });
     };
-  el.target.reset()
+  event.target.reset()
 };
 
 function createPromise(position, delay) {
